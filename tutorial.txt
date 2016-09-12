@@ -1,0 +1,35 @@
+
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+
+docker stop container_name
+
+
+docker build -t demo .
+docker build -t demo --no-cache .
+docker run -p 8000:800 demo
+docker run -it demo /bin/bash
+
+-d (backgorund)
+-e (environment)
+-p (port)
+-it (iteraction)
+
+docker run -d --name db postgres:9.4
+docker logs db
+docker run -d -p 8000:8000 --link db:db -e DATABASE_HOST=db -e DATABASE_NAME=postgres -e DATABASE_USER=postgres -e DATABASE_PASSWORD=postgres demo
+
+docker-compose stop
+docker-compose rm
+docker-compose build
+docker-compose up
+
+
+docker-machine create --driver=amazonec2 --amazon-ec2-access-key="$AWS_ACCESS_KEY_ID" --amazon-secret-key="$AWS_SECRET_ACCESS_KEY" --amazonec2-region="$AWS_DEFAULT_REGION" --amazonec2-vpc-id="$AWS_VPC_ID" demo-vm
+docker-machine ssh demo-vm
+docker-machine rm demo-rm
+
+docker-machine create --driver=virtualbox demo-vm2
+docker-machine env demo-vm2
+docker-machine ssh demo-vm2
+docker-machine rm demo-rm2

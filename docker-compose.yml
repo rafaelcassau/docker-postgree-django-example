@@ -1,0 +1,18 @@
+web:
+    build: .
+    command: chmod +x run_app.sh
+    command: ./run_app.sh
+    links:
+        - 'db'
+    ports:
+        - '8000:8000'
+    volumes:
+        - '.:/usr/src/app'
+    environment:
+        - 'DATABASE_HOST=db'
+        - 'DATABASE_NAME=postgres'
+        - 'DATABASE_USER=postgres'
+        - 'DATABASE_PASSWORD=postgres'
+db:
+    image: postgres:9.4
+    restart: always
